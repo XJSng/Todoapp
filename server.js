@@ -54,7 +54,7 @@ app.get('/', function(req, res) {
     <body>
       <div class="container">
         <h1 class="display-4 text-center py-1">To-Do App</h1>
-        <p class="text-sm text-center py-0.5">Created by Xu Jie, based on Brad Schiff's coded</p>
+        <p class="text-sm text-center py-0.5">Created by Xu Jie, based on Brad Schiff's code</p>
         <div class="jumbotron p-3 shadow-sm">
           <form id="create-form" action="/create-item" method="POST">
             <div class="d-flex align-items-center">
