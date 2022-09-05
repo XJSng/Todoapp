@@ -1,3 +1,4 @@
+const { text } = require("express")
 let express = require("express")
 let {MongoClient, ObjectId} = require('mongodb')
 let sanitizeHTML = require("sanitize-html")
@@ -53,7 +54,7 @@ app.get('/', function(req, res) {
     <body>
       <div class="container">
         <h1 class="display-4 text-center py-1">To-Do App</h1>
-        <p class="text-sm text-center py-0.5">Created by Xu Jie, based on Brad Schiff's code</p>
+        <p class="text-sm text-center py-0.5">Created by Xu Jie, based on Brad Schiff's coded</p>
         <div class="jumbotron p-3 shadow-sm">
           <form id="create-form" action="/create-item" method="POST">
             <div class="d-flex align-items-center">
@@ -69,7 +70,7 @@ app.get('/', function(req, res) {
       </div>
       
       <script>
-      let items = ${JSON.stringify(items)} // JSON = JavaScript Object Notation
+      let items = ${JSON.stringify(text)} // JSON = JavaScript Object Notation
       </script>
 
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -84,7 +85,7 @@ app.get('/', function(req, res) {
 
 
 app.post('/create-item', function(req, res) {
-let safeText = sanitizeHTML(req.body.text, {allowTags: [], allowedAttributes: {}})
+  let safeText = sanitizeHTML(req.body.text, {allowTags: [], allowedAttributes: {}})
   db.collection("items").insertOne({text: safeText}, function(err, info) {
     res.json({_id: info.insertedId, text: safeText})
     //JavaScript object mutation
@@ -94,7 +95,7 @@ let safeText = sanitizeHTML(req.body.text, {allowTags: [], allowedAttributes: {}
 
 app.post("/update-item", function(req, res) {
   let safeText = sanitizeHTML(req.body.text, {allowTags: [], allowedAttributes: {}})
-  db.collection("items").findOneAndUpdate({_id: new ObjectId(req.body.id)}, {$set: {safeText}}, function() {
+  db.collection("items").findOneAndUpdate({_id: new ObjectId(req.body.id)}, {$set: {text: safeText}}, function() {
    res.send("Success")
  })
 })
