@@ -70,7 +70,7 @@ app.get('/', function(req, res) {
       </div>
       
       <script>
-      let items = ${JSON.stringify(text)} // JSON = JavaScript Object Notation
+      let items = ${JSON.stringify(items)} // JSON = JavaScript Object Notation
       </script>
 
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
