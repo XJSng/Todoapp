@@ -1,7 +1,7 @@
-const { text } = require("express")
-let express = require("express")
-let {MongoClient, ObjectId} = require('mongodb')
-let sanitizeHTML = require("sanitize-html")
+const { text } = require("express") 
+let express = require("express") //Imported express
+let {MongoClient, ObjectId} = require('mongodb') //Imported mongodb link
+let sanitizeHTML = require("sanitize-html") //Imported sanitized package
 
 /* 
 This is the MongoClient object which we are interested in.
@@ -23,9 +23,11 @@ async function go() {
 
 go()
 
+//The express framework to include a body object that is added on the request object
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-//The express framework to include a body object that is added on the request object
+
+
 
 // Security precaution added to the application line on app.get() and then next() function
 function passwordProtected(req, res, next) {
@@ -38,17 +40,19 @@ function passwordProtected(req, res, next) {
   }
 }
 
+// Including password protection for all pages.
 app.use(passwordProtected)
-// Password protection for all pages.
 
+//App homepage
 app.get('/', function(req, res) {
   db.collection('items').find().toArray(function(err, items) {
+   //This is our inserted HTML using bootstrap CSS
     res.send(`<!DOCTYPE html>
     <html>
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Simple To-Do App</title>
+      <title>Xu Jie's Simple To-Do App</title>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     </head>
     <body>
@@ -68,9 +72,8 @@ app.get('/', function(req, res) {
         </ul>
         
       </div>
-      
       <script>
-      let items = ${JSON.stringify(items)} // JSON = JavaScript Object Notation
+      let items = ${JSON.stringify(items)} <!-- JSON = JavaScript Object Notation -->
       </script>
 
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -78,6 +81,7 @@ app.get('/', function(req, res) {
     </body>
     </html>`)
   })
+
 //.find means to read the database.
 //.toArray makes data from Mongodb easier to read for JavaScript
   
